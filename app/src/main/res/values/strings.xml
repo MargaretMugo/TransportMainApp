@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">TransportMainApp</string>
+    <string name="register_user">Register User</string>
+    <string name="email">Email</string>
+    <string name="age">Age</string>
+    <string name="fullName">Full Name</string>
+    <string name="your_amazing_app_for_travel">Your Amazing App for travel</string>
+    <string name="travelnow">TravelNow</string>
+    <string name="password">Password</string>
+</resources>
