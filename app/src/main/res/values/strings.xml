@@ -7,4 +7,8 @@
     <string name="your_amazing_app_for_travel">Your Amazing App for travel</string>
     <string name="travelnow">TravelNow</string>
     <string name="password">Password</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="enter_your_email">Enter your email</string>
+    <string name="logout">Logout</string>
+    <string name="welcome">Welcome</string>
 </resources>

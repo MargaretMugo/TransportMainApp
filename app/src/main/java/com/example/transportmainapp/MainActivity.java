@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private EditText editTextEmail,editTextPassword;
     private ProgressBar progressBar;
-    private TextView register;
+    private TextView register,forgotPassword;
     private Button signIn;
 
     private FirebaseAuth mAuth;
@@ -49,6 +49,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mAuth = FirebaseAuth.getInstance();
 
+        forgotPassword = (TextView) findViewById(R.id.forgotpassword);
+        forgotPassword.setOnClickListener(this);
+
     }
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -60,6 +63,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.signIn:
                 userLogin();
                 break;
+            case R.id.forgotpassword:
+                startActivity(new Intent(this,ForgotPassword.class));
         }
     }
 
