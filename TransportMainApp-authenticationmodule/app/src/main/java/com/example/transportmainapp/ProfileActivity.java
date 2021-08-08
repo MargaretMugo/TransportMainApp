@@ -30,7 +30,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 startActivity(new Intent(ProfileActivity.this, MainActivity.class));
                 break;
             case R.id.driver_button_id:
-                startActivity(new Intent(ProfileActivity.this, DriverActivity.class));
+                startActivity(new Intent(ProfileActivity.this, EditProfilePage.class));
                 break;
             case R.id.passenger_button_id:
                 startActivity(new Intent(ProfileActivity.this, Passenger_Activity.class));

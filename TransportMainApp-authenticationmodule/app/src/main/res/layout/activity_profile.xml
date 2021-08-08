@@ -128,5 +128,4 @@
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintLeft_toLeftOf="@id/text_minivan2"
         app:layout_constraintRight_toRightOf="@id/text_minivan2" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
