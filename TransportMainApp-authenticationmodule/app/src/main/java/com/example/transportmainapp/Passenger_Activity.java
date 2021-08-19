@@ -14,37 +14,25 @@ public class Passenger_Activity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_commuter);
 
-        Button route1 = findViewById(R.id.route1);
+        Button route1 = findViewById(R.id.book_pickup);
         route1.setOnClickListener(this);
 
-        Button route2 = findViewById(R.id.route2);
+        Button route2 = findViewById(R.id.view_trips);
         route2.setOnClickListener(this);
 
-        Button route3 = findViewById(R.id.route3);
-        route3.setOnClickListener(this);
-
-        Button route4 = findViewById(R.id.route4);
-        route4.setOnClickListener(this);
-
         Button back = findViewById(R.id.pass_back_1);
-        route4.setOnClickListener(this);
+        back.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.route1:
+            case R.id.book_pickup:
                 startActivity(new Intent(Passenger_Activity.this, Pickup1.class));
                 break;
-            case R.id.route2:
+            case R.id.view_trips:
                 startActivity(new Intent(Passenger_Activity.this, Pickup2.class));
             break;
-            case R.id.route3:
-                startActivity(new Intent(Passenger_Activity.this, Pickup3.class));
-                break;
-            case R.id.route4:
-                startActivity(new Intent(Passenger_Activity.this, Pickup4.class));
-                break;
             case R.id.pass_back_1:
                 startActivity(new Intent(Passenger_Activity.this, ProfileActivity.class));
                 break;

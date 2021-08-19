@@ -7,123 +7,107 @@
     android:layout_height="match_parent"
     tools:context="com.example.transportmainapp.Passenger_Activity">
 
-    <TextView
-        android:id="@+id/headingTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TravelNow"
-        android:textSize="60sp"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        android:fontFamily="sans-serif-black"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="32dp"
-        android:gravity="center_horizontal"
-        android:layout_gravity="center_horizontal" />
+    <LinearLayout
+        android:id="@+id/appbar"
+        android:layout_width="419dp"
+        android:layout_height="148dp"
+        android:background="#FFBB86FC"
+        android:gravity="center"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/headerdescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Your Amazing App for travel"
-        android:textStyle="italic"
-        android:textSize="18sp"
-        android:textAlignment="center"
-        app:layout_constraintTop_toBottomOf="@id/headingTitle"
+        <TextView
+            android:id="@+id/headingTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:fontFamily="sans-serif-black"
+            android:gravity="center"
+            android:text="TravelNow"
+            android:textAlignment="center"
+            android:textSize="60sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/headerdescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Your Amazing App for travel"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="italic" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/minivan"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="184dp"
+        android:contentDescription="@string/welcome_to_travel_now"
+        android:gravity="center_horizontal"
+        android:src="@drawable/minivan"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:gravity="center_horizontal" />
+        app:layout_constraintTop_toTopOf="@id/appbar" />
 
     <TextView
         android:id="@+id/availabletrips"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_width="261dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="44dp"
         android:gravity="center_horizontal"
-        android:text="Available Trips"
+        android:text="Welcome Back!"
         android:textAlignment="center"
-        android:textSize="18sp"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@id/book_pickup"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/headerdescription" />
+        app:layout_constraintRight_toRightOf="parent" />
 
     <Button
-        android:id="@+id/route1"
-        android:layout_width="500dp"
-        android:layout_height="62dp"
-        android:layout_marginTop="64dp"
-        android:backgroundTint="#FFFFFFFF"
-        android:text="Kasarani - CBD"
-        android:textColor="#1e1b21"
-        android:textSize="25sp"
+        android:id="@+id/book_pickup"
+        android:layout_width="154dp"
+        android:layout_height="96dp"
+        android:layout_marginRight="152dp"
+        android:layout_marginBottom="268dp"
+        android:backgroundTint="#6200EE"
+        android:text="BOOK PICKUP"
+        android:textColor="#FFFFFFFF"
+        android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintHorizontal_bias="0.34"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/availabletrips" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="@id/availabletrips" />
 
     <Button
-        android:id="@+id/route2"
-        android:layout_width="500dp"
-        android:layout_height="62dp"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#FFFFFFFF"
-        android:text="Kiambu - CBD"
-        android:textColor="#1e1b21"
-        android:textSize="25sp"
+        android:id="@+id/view_trips"
+        android:layout_width="154dp"
+        android:layout_height="96dp"
+        android:layout_marginLeft="148dp"
+        android:layout_marginBottom="268dp"
+        android:backgroundTint="#6200EE"
+        android:text="VIEW TRIPS"
+        android:textColor="#FFFFFFFF"
+        android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintHorizontal_bias="0.404"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/route1" />
-
-    <Button
-        android:id="@+id/route3"
-        android:layout_width="500dp"
-        android:layout_height="62dp"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#FFFFFFFF"
-        android:text="Langata - CBD"
-        android:textColor="#1e1b21"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintHorizontal_bias="0.404"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/route2"
-        android:gravity="center_horizontal" />
-
-    <Button
-        android:id="@+id/route4"
-        android:layout_width="500dp"
-        android:layout_height="62dp"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#FFFFFFFF"
-        android:text="Waiyaki Way - CBD"
-        android:textColor="#1e1b21"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintHorizontal_bias="0.404"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/route3" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/availabletrips" />
 
     <Button
         android:id="@+id/pass_back_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="120dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="144dp"
         android:backgroundTint="#b794f6"
         android:text="BACK"
-        android:textColor="#1e1b21"
+        android:textColor="#FFFFFFFF"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.671"
-        app:layout_constraintLeft_toLeftOf="@id/route4"
-        app:layout_constraintRight_toRightOf="@id/route4" />
+        app:layout_constraintHorizontal_bias="0.94"
+        app:layout_constraintLeft_toLeftOf="@id/book_pickup"
+        app:layout_constraintRight_toRightOf="@id/view_trips" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -25,6 +25,8 @@
         <activity android:name=".PickTime"/>
         <activity android:name=".BookActivity"/>
         <activity android:name=".EditProfilePage"/>
+        <activity android:name=".Commuter_Activity"/>
+        <activity android:name=".RegisterUser"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

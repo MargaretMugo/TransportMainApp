@@ -15,4 +15,30 @@
     <string name="are_you_a">Are you a Driver or Commuter?</string>
     <string name="driver">DRIVER</string>
     <string name="commuter">COMMUTER</string>
+    <string name="pickup_prompt">Choose a pick up location</string>
+    <string name="drop_off_prompt">Choose a drop off location</string>
+    <string-array name="pickup">
+        <item>Kiambu road</item>
+        <item>Thika Road</item>
+        <item>Waiyaki way</item>
+        <item>Langata Road</item>
+        <item>Mombasa Road</item>
+        <item>CBD</item>
+    </string-array>
+    <string-array name="drop_off">
+        <item>Kiambu road</item>
+        <item>Thika Road</item>
+        <item>Waiyaki way</item>
+        <item>Langata Road</item>
+        <item>Mombasa Road</item>
+        <item>CBD</item>
+    </string-array>
+    <string-array name="time">
+        <item>6:30AM</item>
+        <item>8:30AM</item>
+        <item>10:30AM</item>
+        <item>NOON</item>
+        <item>4:30PM</item>
+        <item>6:30PM</item>
+    </string-array>
 </resources>

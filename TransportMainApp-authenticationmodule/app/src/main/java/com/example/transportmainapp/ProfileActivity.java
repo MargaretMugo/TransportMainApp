@@ -17,10 +17,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         Button logout = findViewById(R.id.signOut);
         Button driver_button = findViewById(R.id.driver_button_id);
         Button passenger_button = findViewById(R.id.passenger_button_id);
+        Button settings = findViewById(R.id.settings);
 
         logout.setOnClickListener(this);
         driver_button.setOnClickListener(this);
         passenger_button.setOnClickListener(this);
+        settings.setOnClickListener(this);
     }
 
     @Override
@@ -30,10 +32,13 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 startActivity(new Intent(ProfileActivity.this, MainActivity.class));
                 break;
             case R.id.driver_button_id:
-                startActivity(new Intent(ProfileActivity.this, EditProfilePage.class));
+                startActivity(new Intent(ProfileActivity.this, DriverActivity.class));
                 break;
             case R.id.passenger_button_id:
                 startActivity(new Intent(ProfileActivity.this, Passenger_Activity.class));
+                break;
+            case R.id.settings:
+                startActivity(new Intent(ProfileActivity.this, EditProfilePage.class));
                 break;
         }
     }

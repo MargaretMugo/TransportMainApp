@@ -7,4 +7,207 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".BookActivity">
 
+    <LinearLayout
+        android:id="@+id/appbar"
+        android:layout_width="562dp"
+        android:layout_height="158dp"
+        android:background="#FFBB86FC"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="-92dp"
+        tools:layout_editor_absoluteY="-6dp">
+
+        <TextView
+            android:id="@+id/headingTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:fontFamily="sans-serif-black"
+            android:gravity="center"
+            android:text="TravelNow"
+            android:textAlignment="center"
+            android:textSize="60sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/headerdescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Your Amazing App for travel"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="italic" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/header_book"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center_horizontal"
+        android:text="Ride Summary"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appbar" />
+
+    <TextView
+        android:id="@+id/pick_text"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="130dp"
+        android:gravity="center_horizontal"
+        android:text="Pick Up Point: "
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        app:layout_constraintRight_toRightOf="@id/header_book"
+        app:layout_constraintTop_toBottomOf="@+id/header_book" />
+
+    <TextView
+        android:id="@+id/pickup_value"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="85dp"
+        android:layout_marginTop="30dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="@id/header_book"
+        app:layout_constraintTop_toBottomOf="@id/header_book" />
+
+    <TextView
+        android:id="@+id/drop_text"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="130dp"
+        android:gravity="center_horizontal"
+        android:text="Drop Off Point: "
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        app:layout_constraintRight_toRightOf="@id/header_book"
+        app:layout_constraintTop_toBottomOf="@+id/pick_text" />
+
+    <TextView
+        android:id="@+id/drop_value"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="85dp"
+        android:layout_marginTop="30dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="@id/header_book"
+        app:layout_constraintTop_toBottomOf="@id/pickup_value" />
+
+    <TextView
+        android:id="@+id/cabefare_text"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="130dp"
+        android:gravity="center_horizontal"
+        android:text="Cab Fare: "
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        app:layout_constraintRight_toRightOf="@id/header_book"
+        app:layout_constraintTop_toBottomOf="@+id/drop_text" />
+
+    <TextView
+        android:id="@+id/cabfare_value"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="85dp"
+        android:layout_marginTop="30dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="@id/header_book"
+        app:layout_constraintTop_toBottomOf="@id/drop_value" />
+
+    <TextView
+        android:id="@+id/notes_text"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="30dp"
+        android:gravity="center_horizontal"
+        android:text="Note to Driver :"
+        android:textAlignment="center"
+        android:layout_marginRight="130dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintRight_toRightOf="@id/header_book"
+        app:layout_constraintTop_toBottomOf="@+id/cabefare_text" />
+    <EditText
+        android:id="@+id/notes_value"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:layout_constraintTop_toBottomOf="@+id/notes_text"
+        android:background="@color/white"
+        android:layout_marginTop="5dp"
+        android:padding="10dp"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Enter Here">
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/payment_text"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:text="Payment Option:"
+        android:textAlignment="center"
+        android:layout_marginRight="130dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintRight_toRightOf="@id/header_book"
+        app:layout_constraintTop_toBottomOf="@+id/notes_value" />
+    <RadioGroup
+        android:layout_marginTop="10dp"
+        android:id="@+id/groupradio"
+        android:layout_marginLeft="25dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/payment_text">
+
+    <RadioButton
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/radia_id1"
+        android:text="M-PESA"
+        android:textSize="20dp"/>
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/payment_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="52dp"
+        android:backgroundTint="#b794f6"
+        android:text="PAY NOW"
+        android:textColor="#1e1b21"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/groupradio"
+        app:layout_constraintVertical_bias="0.439"
+        tools:layout_editor_absoluteX="141dp" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
