@@ -31,7 +31,7 @@ public class Passenger_Activity extends AppCompatActivity implements View.OnClic
                 startActivity(new Intent(Passenger_Activity.this, Pickup1.class));
                 break;
             case R.id.view_trips:
-                startActivity(new Intent(Passenger_Activity.this, Pickup2.class));
+                startActivity(new Intent(Passenger_Activity.this, View_TripActivity.class));
             break;
             case R.id.pass_back_1:
                 startActivity(new Intent(Passenger_Activity.this, ProfileActivity.class));

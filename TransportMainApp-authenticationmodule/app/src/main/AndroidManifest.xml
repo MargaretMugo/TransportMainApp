@@ -14,15 +14,9 @@
         android:theme="@style/Theme.TransportMainApp">
         <activity android:name=".ForgotPassword"></activity>
         <activity android:name=".ProfileActivity" />
-        <activity android:name=".PassengerActivity" />
         <activity android:name=".DriverActivity" />
         <activity android:name=".Pickup1"/>
-        <activity android:name=".Pickup2"/>
-        <activity android:name=".Pickup3"/>
-        <activity android:name=".Pickup4"/>
-        <activity android:name=".Dropoff"/>
         <activity android:name=".Passenger_Activity"/>
-        <activity android:name=".PickTime"/>
         <activity android:name=".BookActivity"/>
         <activity android:name=".EditProfilePage"/>
         <activity android:name=".Commuter_Activity"/>
