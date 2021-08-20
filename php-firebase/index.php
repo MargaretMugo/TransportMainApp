@@ -7,15 +7,6 @@ include('includes/header.php');
     <div class="row">
         <div class="col-md-6 mb-3">
             <div class="card">
-                <div class="card-body">
-                    <h5>Total Number of Records</h5>
-                    <?php
-                    include('dbcon.php');
-                    $ref_table = 'Users';
-                    $total_count = $database->getReference($ref_table)->numChildren();
-                    echo $total_count;
-                    ?>
-                </div>
             </div>
         </div>
         <div class="col-md-12">
@@ -36,9 +27,8 @@ include('includes/header.php');
                     <table class="table table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>Sl No</th>
+                                <th>User No</th>
                                 <th>Full Name</th>
-                                <th>Age</th>
                                 <th>Email</th>
                                 <th>Phone Number</th>
                                 <th>Edit</th>
@@ -56,9 +46,8 @@ include('includes/header.php');
                                 foreach ($fetchdata as $key => $row) {
                             ?>
                                     <tr>
-                                        <td><?= $i++; ?></td>
+                                        <td><?= $i; ?></td>
                                         <td><?= $row['fullName'] ?></td>
-                                        <td><?= $row['age'] ?></td>
                                         <td><?= $row['email'] ?></td>
                                         <td><?= $row['phone'] ?></td>
                                         <td>

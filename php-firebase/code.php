@@ -2,6 +2,37 @@
 session_start();
 include('dbcon.php');
 
+if(isset($_POST['register_btn']))
+{
+    $fullName = $_POST['fullName'];
+    $email = $_POST['email'];
+    $phoneNo = $_POST['phone'];
+    $password = $_POST['password'];
+
+    $userProperties = [
+        'email' =>  $email,
+        'emailVerified' => false,
+        'phoneNumber' => '07'.$phoneNo,
+        'password' => $password,
+        'displayName' => $fullName,
+        'photoUrl' => 'http://www.example.com/12345678/photo.png',
+        'disabled' => false,
+    ];
+
+    $createdUser = $auth->createUser($userProperties);
+    if($createdUser)
+    {
+        $_SESSION['status'] = "User Created Successfully";
+        header('Location:register.php');
+        exit();
+    }
+    else{
+        $_SESSION['status'] = "User Not Created";
+        header('Location:register.php');
+        exit();
+    }
+}
+
 if(isset($_POST['disable_btn']))
 {
     $del_id = $_POST['disable_btn'];
@@ -20,18 +51,16 @@ if(isset($_POST['update_user']))
 {
     $key = $_POST['key'];
     $fullName = $_POST['fullName'];
-    $age = $_POST['age'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
 
     $updateData = [
         'fullName' => $fullName,
-        'age' => $age,
         'email' => $email,
         'phone' => $phone,
     ];
     $ref_table = 'Users/'.$key;
-    $updatequery_result = $database->getReference()->update($updateData);
+    $updatequery_result = $database->getReference($ref_table)->update($updateData);
     if ($updatequery_result) {
         $_SESSION['status'] = "User updated successfully";
         header('Location:index.php');
@@ -46,13 +75,11 @@ if(isset($_POST['update_user']))
 if(isset($_POST['save_user']))
 {
     $fullName = $_POST['fullName'];
-    $age = $_POST['age'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
 
     $postData = [
         'fullName'=>$fullName,
-        'age' => $age,
         'email' => $email,
         'phone' => $phone,
     ];
