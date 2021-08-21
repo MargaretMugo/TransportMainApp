@@ -12,14 +12,20 @@ if(isset($_POST['register_btn']))
     $userProperties = [
         'email' =>  $email,
         'emailVerified' => false,
-        'phoneNumber' => '07'.$phoneNo,
+        'phone' => '+254'.$phoneNo,
         'password' => $password,
         'displayName' => $fullName,
         'photoUrl' => 'http://www.example.com/12345678/photo.png',
         'disabled' => false,
     ];
 
-    $createdUser = $auth->createUser($userProperties);
+    //$createdUser = $auth->createUser($userProperties);
+    try {
+        $createdUser = $auth->createUser($userProperties);
+    } catch (\Throwable $e) {
+        echo $e->getMessage();
+        exit;
+    }
     if($createdUser)
     {
         $_SESSION['status'] = "User Created Successfully";

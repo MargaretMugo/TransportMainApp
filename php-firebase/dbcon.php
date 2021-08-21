@@ -11,17 +11,4 @@ $factory = (new Factory)
     ->withDatabaseUri('https://transportmainapp-default-rtdb.firebaseio.com/');
 $database = $factory->createDatabase();
 $auth = $factory->createAuth();
-
-/*try {
-    // The operation you want to perform
-    echo 'OK';
-} catch (FirebaseException $e) {
-    echo 'An error has occurred while working with the SDK: '.$e->getMessage;
-} catch (Throwable $e) {
-    echo 'A not-Firebase specific error has occurred: '.$e->getMessage;
-}
-
-*/
-
-
 ?>

@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'd810081b0ecff35f79ef67b39a0e9bc9f2455de4',
+    'reference' => 'ca1a30bad058a29671acd7a32a15070476343f98',
     'name' => '__root__',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'd810081b0ecff35f79ef67b39a0e9bc9f2455de4',
+      'reference' => 'ca1a30bad058a29671acd7a32a15070476343f98',
     ),
     'fig/http-message-util' => 
     array (
@@ -40,12 +40,12 @@
     ),
     'google/auth' => 
     array (
-      'pretty_version' => 'v1.16.0',
-      'version' => '1.16.0.0',
+      'pretty_version' => 'v1.17.0',
+      'version' => '1.17.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'c747738d2dd450f541f09f26510198fbedd1c8a0',
+      'reference' => '4da3a850e9d1045918099b6561165d829efbe2b7',
     ),
     'google/cloud-core' => 
     array (
@@ -148,12 +148,12 @@
     ),
     'monolog/monolog' => 
     array (
-      'pretty_version' => '2.3.2',
-      'version' => '2.3.2.0',
+      'pretty_version' => '1.2.1',
+      'version' => '1.2.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '71312564759a7db5b789296369c1a264efc43aad',
+      'reference' => 'd16496318c3e08e3bccfc3866e104e49cf25488a',
     ),
     'mtdowling/jmespath.php' => 
     array (
@@ -166,12 +166,12 @@
     ),
     'psr/cache' => 
     array (
-      'pretty_version' => '1.0.1',
-      'version' => '1.0.1.0',
+      'pretty_version' => '2.0.0',
+      'version' => '2.0.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'd11b50ad223250cf17b86e38383413f5a6764bf8',
+      'reference' => '213f9dbc5b9bfbc4f8db86d2838dc968752ce13b',
     ),
     'psr/http-client' => 
     array (
@@ -207,19 +207,12 @@
     ),
     'psr/log' => 
     array (
-      'pretty_version' => '1.1.4',
-      'version' => '1.1.4.0',
+      'pretty_version' => '3.0.0',
+      'version' => '3.0.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'd49695b909c3b7628b6289db5479a1c204601f11',
-    ),
-    'psr/log-implementation' => 
-    array (
-      'provided' => 
-      array (
-        0 => '1.0.0',
-      ),
+      'reference' => 'fe5ea303b0887d5caefd3d431c3e61ad47037001',
     ),
     'psr/simple-cache' => 
     array (

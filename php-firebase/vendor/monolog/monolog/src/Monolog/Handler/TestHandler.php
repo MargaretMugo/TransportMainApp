@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /*
  * This file is part of the Monolog package.
@@ -12,7 +12,6 @@
 namespace Monolog\Handler;
 
 use Monolog\Logger;
-use Psr\Log\LogLevel;
 
 /**
  * Used for testing purposes.
@@ -20,178 +19,109 @@ use Psr\Log\LogLevel;
  * It records all records and gives you access to them for verification.
  *
  * @author Jordi Boggiano <j.boggiano@seld.be>
- *
- * @method bool hasEmergency($record)
- * @method bool hasAlert($record)
- * @method bool hasCritical($record)
- * @method bool hasError($record)
- * @method bool hasWarning($record)
- * @method bool hasNotice($record)
- * @method bool hasInfo($record)
- * @method bool hasDebug($record)
- *
- * @method bool hasEmergencyRecords()
- * @method bool hasAlertRecords()
- * @method bool hasCriticalRecords()
- * @method bool hasErrorRecords()
- * @method bool hasWarningRecords()
- * @method bool hasNoticeRecords()
- * @method bool hasInfoRecords()
- * @method bool hasDebugRecords()
- *
- * @method bool hasEmergencyThatContains($message)
- * @method bool hasAlertThatContains($message)
- * @method bool hasCriticalThatContains($message)
- * @method bool hasErrorThatContains($message)
- * @method bool hasWarningThatContains($message)
- * @method bool hasNoticeThatContains($message)
- * @method bool hasInfoThatContains($message)
- * @method bool hasDebugThatContains($message)
- *
- * @method bool hasEmergencyThatMatches($message)
- * @method bool hasAlertThatMatches($message)
- * @method bool hasCriticalThatMatches($message)
- * @method bool hasErrorThatMatches($message)
- * @method bool hasWarningThatMatches($message)
- * @method bool hasNoticeThatMatches($message)
- * @method bool hasInfoThatMatches($message)
- * @method bool hasDebugThatMatches($message)
- *
- * @method bool hasEmergencyThatPasses($message)
- * @method bool hasAlertThatPasses($message)
- * @method bool hasCriticalThatPasses($message)
- * @method bool hasErrorThatPasses($message)
- * @method bool hasWarningThatPasses($message)
- * @method bool hasNoticeThatPasses($message)
- * @method bool hasInfoThatPasses($message)
- * @method bool hasDebugThatPasses($message)
- *
- * @phpstan-import-type Record from \Monolog\Logger
- * @phpstan-import-type Level from \Monolog\Logger
- * @phpstan-import-type LevelName from \Monolog\Logger
  */
 class TestHandler extends AbstractProcessingHandler
 {
-    /** @var Record[] */
-    protected $records = [];
-    /** @var array<Level, Record[]> */
-    protected $recordsByLevel = [];
-    /** @var bool */
-    private $skipReset = false;
+    protected $records = array();
+    protected $recordsByLevel = array();
 
-    /**
-     * @return array
-     *
-     * @phpstan-return Record[]
-     */
     public function getRecords()
     {
         return $this->records;
     }
 
-    /**
-     * @return void
-     */
-    public function clear()
+    public function hasEmergency($record)
     {
-        $this->records = [];
-        $this->recordsByLevel = [];
+        return $this->hasRecord($record, Logger::EMERGENCY);
     }
 
-    /**
-     * @return void
-     */
-    public function reset()
+    public function hasAlert($record)
     {
-        if (!$this->skipReset) {
-            $this->clear();
-        }
+        return $this->hasRecord($record, Logger::ALERT);
     }
 
-    /**
-     * @return void
-     */
-    public function setSkipReset(bool $skipReset)
+    public function hasCritical($record)
     {
-        $this->skipReset = $skipReset;
+        return $this->hasRecord($record, Logger::CRITICAL);
     }
 
-    /**
-     * @param string|int $level Logging level value or name
-     *
-     * @phpstan-param Level|LevelName|LogLevel::* $level
-     */
-    public function hasRecords($level): bool
+    public function hasError($record)
     {
-        return isset($this->recordsByLevel[Logger::toMonologLevel($level)]);
+        return $this->hasRecord($record, Logger::ERROR);
     }
 
-    /**
-     * @param string|array $record Either a message string or an array containing message and optionally context keys that will be checked against all records
-     * @param string|int   $level  Logging level value or name
-     *
-     * @phpstan-param array{message: string, context?: mixed[]}|string $record
-     * @phpstan-param Level|LevelName|LogLevel::*                      $level
-     */
-    public function hasRecord($record, $level): bool
+    public function hasWarning($record)
     {
-        if (is_string($record)) {
-            $record = array('message' => $record);
-        }
-
-        return $this->hasRecordThatPasses(function ($rec) use ($record) {
-            if ($rec['message'] !== $record['message']) {
-                return false;
-            }
-            if (isset($record['context']) && $rec['context'] !== $record['context']) {
-                return false;
-            }
-
-            return true;
-        }, $level);
+        return $this->hasRecord($record, Logger::WARNING);
     }
 
-    /**
-     * @param string|int $level Logging level value or name
-     *
-     * @phpstan-param Level|LevelName|LogLevel::* $level
-     */
-    public function hasRecordThatContains(string $message, $level): bool
+    public function hasNotice($record)
     {
-        return $this->hasRecordThatPasses(function ($rec) use ($message) {
-            return strpos($rec['message'], $message) !== false;
-        }, $level);
+        return $this->hasRecord($record, Logger::NOTICE);
     }
 
-    /**
-     * @param string|int $level Logging level value or name
-     *
-     * @phpstan-param Level|LevelName|LogLevel::* $level
-     */
-    public function hasRecordThatMatches(string $regex, $level): bool
+    public function hasInfo($record)
     {
-        return $this->hasRecordThatPasses(function (array $rec) use ($regex): bool {
-            return preg_match($regex, $rec['message']) > 0;
-        }, $level);
+        return $this->hasRecord($record, Logger::INFO);
     }
 
-    /**
-     * @param  string|int $level Logging level value or name
-     * @return bool
-     *
-     * @psalm-param callable(Record, int): mixed $predicate
-     * @phpstan-param Level|LevelName|LogLevel::* $level
-     */
-    public function hasRecordThatPasses(callable $predicate, $level)
+    public function hasDebug($record)
     {
-        $level = Logger::toMonologLevel($level);
+        return $this->hasRecord($record, Logger::DEBUG);
+    }
 
+    public function hasEmergencyRecords()
+    {
+        return isset($this->recordsByLevel[Logger::EMERGENCY]);
+    }
+
+    public function hasAlertRecords()
+    {
+        return isset($this->recordsByLevel[Logger::ALERT]);
+    }
+
+    public function hasCriticalRecords()
+    {
+        return isset($this->recordsByLevel[Logger::CRITICAL]);
+    }
+
+    public function hasErrorRecords()
+    {
+        return isset($this->recordsByLevel[Logger::ERROR]);
+    }
+
+    public function hasWarningRecords()
+    {
+        return isset($this->recordsByLevel[Logger::WARNING]);
+    }
+
+    public function hasNoticeRecords()
+    {
+        return isset($this->recordsByLevel[Logger::NOTICE]);
+    }
+
+    public function hasInfoRecords()
+    {
+        return isset($this->recordsByLevel[Logger::INFO]);
+    }
+
+    public function hasDebugRecords()
+    {
+        return isset($this->recordsByLevel[Logger::DEBUG]);
+    }
+
+    protected function hasRecord($record, $level)
+    {
         if (!isset($this->recordsByLevel[$level])) {
             return false;
         }
 
-        foreach ($this->recordsByLevel[$level] as $i => $rec) {
-            if ($predicate($rec, $i)) {
+        if (is_array($record)) {
+            $record = $record['message'];
+        }
+
+        foreach ($this->recordsByLevel[$level] as $rec) {
+            if ($rec['message'] === $record) {
                 return true;
             }
         }
@@ -200,32 +130,11 @@ class TestHandler extends AbstractProcessingHandler
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
-    protected function write(array $record): void
+    protected function write(array $record)
     {
         $this->recordsByLevel[$record['level']][] = $record;
         $this->records[] = $record;
-    }
-
-    /**
-     * @param  string  $method
-     * @param  mixed[] $args
-     * @return bool
-     */
-    public function __call($method, $args)
-    {
-        if (preg_match('/(.*)(Debug|Info|Notice|Warning|Error|Critical|Alert|Emergency)(.*)/', $method, $matches) > 0) {
-            $genericMethod = $matches[1] . ('Records' !== $matches[3] ? 'Record' : '') . $matches[3];
-            $level = constant('Monolog\Logger::' . strtoupper($matches[2]));
-            $callback = [$this, $genericMethod];
-            if (is_callable($callback)) {
-                $args[] = $level;
-
-                return call_user_func_array($callback, $args);
-            }
-        }
-
-        throw new \BadMethodCallException('Call to undefined method ' . get_class($this) . '::' . $method . '()');
     }
 }

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /*
  * This file is part of the Monolog package.
@@ -12,86 +12,46 @@
 namespace Monolog\Handler;
 
 use Monolog\Formatter\ChromePHPFormatter;
-use Monolog\Formatter\FormatterInterface;
-use Monolog\Logger;
-use Monolog\Utils;
 
 /**
  * Handler sending logs to the ChromePHP extension (http://www.chromephp.com/)
  *
- * This also works out of the box with Firefox 43+
- *
  * @author Christophe Coevoet <stof@notk.org>
- *
- * @phpstan-import-type Record from \Monolog\Logger
  */
 class ChromePHPHandler extends AbstractProcessingHandler
 {
-    use WebRequestRecognizerTrait;
-
     /**
      * Version of the extension
      */
-    protected const VERSION = '4.0';
+    const VERSION = '3.0';
 
     /**
      * Header name
      */
-    protected const HEADER_NAME = 'X-ChromeLogger-Data';
+    const HEADER_NAME = 'X-ChromePhp-Data';
 
-    /**
-     * Regular expression to detect supported browsers (matches any Chrome, or Firefox 43+)
-     */
-    protected const USER_AGENT_REGEX = '{\b(?:Chrome/\d+(?:\.\d+)*|HeadlessChrome|Firefox/(?:4[3-9]|[5-9]\d|\d{3,})(?:\.\d)*)\b}';
-
-    /** @var bool */
     protected static $initialized = false;
 
-    /**
-     * Tracks whether we sent too much data
-     *
-     * Chrome limits the headers to 4KB, so when we sent 3KB we stop sending
-     *
-     * @var bool
-     */
-    protected static $overflowed = false;
-
-    /** @var mixed[] */
-    protected static $json = [
+    protected static $json = array(
         'version' => self::VERSION,
-        'columns' => ['label', 'log', 'backtrace', 'type'],
-        'rows' => [],
-    ];
+        'columns' => array('label', 'log', 'backtrace', 'type'),
+        'rows' => array(),
+    );
 
-    /** @var bool */
-    protected static $sendHeaders = true;
-
-    public function __construct($level = Logger::DEBUG, bool $bubble = true)
-    {
-        parent::__construct($level, $bubble);
-        if (!function_exists('json_encode')) {
-            throw new \RuntimeException('PHP\'s json extension is required to use Monolog\'s ChromePHPHandler');
-        }
-    }
+    protected $sendHeaders = true;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
-    public function handleBatch(array $records): void
+    public function handleBatch(array $records)
     {
-        if (!$this->isWebRequest()) {
-            return;
-        }
-
-        $messages = [];
+        $messages = array();
 
         foreach ($records as $record) {
             if ($record['level'] < $this->level) {
                 continue;
             }
-            /** @var Record $message */
-            $message = $this->processRecord($record);
-            $messages[] = $message;
+            $messages[] = $this->processRecord($record);
         }
 
         if (!empty($messages)) {
@@ -104,7 +64,7 @@ class ChromePHPHandler extends AbstractProcessingHandler
     /**
      * {@inheritDoc}
      */
-    protected function getDefaultFormatter(): FormatterInterface
+    protected function getDefaultFormatter()
     {
         return new ChromePHPFormatter();
     }
@@ -114,13 +74,10 @@ class ChromePHPHandler extends AbstractProcessingHandler
      *
      * @see sendHeader()
      * @see send()
+     * @param array $record
      */
-    protected function write(array $record): void
+    protected function write(array $record)
     {
-        if (!$this->isWebRequest()) {
-            return;
-        }
-
         self::$json['rows'][] = $record['formatted'];
 
         $this->send();
@@ -131,66 +88,39 @@ class ChromePHPHandler extends AbstractProcessingHandler
      *
      * @see sendHeader()
      */
-    protected function send(): void
+    protected function send()
     {
-        if (self::$overflowed || !self::$sendHeaders) {
-            return;
-        }
-
         if (!self::$initialized) {
+            $this->sendHeaders = $this->headersAccepted();
+            self::$json['request_uri'] = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
+
             self::$initialized = true;
-
-            self::$sendHeaders = $this->headersAccepted();
-            if (!self::$sendHeaders) {
-                return;
-            }
-
-            self::$json['request_uri'] = $_SERVER['REQUEST_URI'] ?? '';
         }
 
-        $json = Utils::jsonEncode(self::$json, Utils::DEFAULT_JSON_FLAGS & ~JSON_UNESCAPED_UNICODE, true);
-        $data = base64_encode(utf8_encode($json));
-        if (strlen($data) > 3 * 1024) {
-            self::$overflowed = true;
-
-            $record = [
-                'message' => 'Incomplete logs, chrome header size limit reached',
-                'context' => [],
-                'level' => Logger::WARNING,
-                'level_name' => Logger::getLevelName(Logger::WARNING),
-                'channel' => 'monolog',
-                'datetime' => new \DateTimeImmutable(),
-                'extra' => [],
-            ];
-            self::$json['rows'][count(self::$json['rows']) - 1] = $this->getFormatter()->format($record);
-            $json = Utils::jsonEncode(self::$json, null, true);
-            $data = base64_encode(utf8_encode($json));
-        }
-
-        if (trim($data) !== '') {
-            $this->sendHeader(static::HEADER_NAME, $data);
-        }
+        $this->sendHeader(self::HEADER_NAME, base64_encode(utf8_encode(json_encode(self::$json))));
     }
 
     /**
      * Send header string to the client
+     *
+     * @param string $header
+     * @param string $content
      */
-    protected function sendHeader(string $header, string $content): void
+    protected function sendHeader($header, $content)
     {
-        if (!headers_sent() && self::$sendHeaders) {
+        if (!headers_sent() && $this->sendHeaders) {
             header(sprintf('%s: %s', $header, $content));
         }
     }
 
     /**
      * Verifies if the headers are accepted by the current user agent
+     *
+     * @return Boolean
      */
-    protected function headersAccepted(): bool
+    protected function headersAccepted()
     {
-        if (empty($_SERVER['HTTP_USER_AGENT'])) {
-            return false;
-        }
-
-        return preg_match(static::USER_AGENT_REGEX, $_SERVER['HTTP_USER_AGENT']) === 1;
+        return !isset($_SERVER['HTTP_USER_AGENT'])
+               || preg_match('{\bChrome/\d+[\.\d+]*\b}', $_SERVER['HTTP_USER_AGENT']);
     }
 }

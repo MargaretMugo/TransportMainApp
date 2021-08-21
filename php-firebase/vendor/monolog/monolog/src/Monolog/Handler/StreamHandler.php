@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /*
  * This file is part of the Monolog package.
@@ -12,7 +12,6 @@
 namespace Monolog\Handler;
 
 use Monolog\Logger;
-use Monolog\Utils;
 
 /**
  * Stores to any stream resource
@@ -20,175 +19,58 @@ use Monolog\Utils;
  * Can be used to store into php://stderr, remote and local files, etc.
  *
  * @author Jordi Boggiano <j.boggiano@seld.be>
- *
- * @phpstan-import-type FormattedRecord from AbstractProcessingHandler
  */
 class StreamHandler extends AbstractProcessingHandler
 {
-    protected const MAX_CHUNK_SIZE = 2147483647;
-
-    /** @var resource|null */
     protected $stream;
-    /** @var ?string */
-    protected $url = null;
-    /** @var ?string */
-    private $errorMessage = null;
-    /** @var ?int */
-    protected $filePermission;
-    /** @var bool */
-    protected $useLocking;
-    /** @var true|null */
-    private $dirCreated = null;
+    protected $url;
 
     /**
-     * @param resource|string $stream         If a missing path can't be created, an UnexpectedValueException will be thrown on first write
-     * @param int|null        $filePermission Optional file permissions (default (0644) are only for owner read/write)
-     * @param bool            $useLocking     Try to lock log file before doing any writes
-     *
-     * @throws \InvalidArgumentException If stream is not a resource or string
+     * @param string  $stream
+     * @param integer $level  The minimum logging level at which this handler will be triggered
+     * @param Boolean $bubble Whether the messages that are handled can bubble up the stack or not
      */
-    public function __construct($stream, $level = Logger::DEBUG, bool $bubble = true, ?int $filePermission = null, bool $useLocking = false)
+    public function __construct($stream, $level = Logger::DEBUG, $bubble = true)
     {
         parent::__construct($level, $bubble);
         if (is_resource($stream)) {
             $this->stream = $stream;
-            stream_set_chunk_size($this->stream, self::MAX_CHUNK_SIZE);
-        } elseif (is_string($stream)) {
-            $this->url = Utils::canonicalizePath($stream);
         } else {
-            throw new \InvalidArgumentException('A stream must either be a resource or a string.');
+            $this->url = $stream;
         }
-
-        $this->filePermission = $filePermission;
-        $this->useLocking = $useLocking;
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
-    public function close(): void
+    public function close()
     {
-        if ($this->url && is_resource($this->stream)) {
+        if (is_resource($this->stream)) {
             fclose($this->stream);
         }
         $this->stream = null;
-        $this->dirCreated = null;
     }
 
     /**
-     * Return the currently active stream if it is open
-     *
-     * @return resource|null
+     * {@inheritdoc}
      */
-    public function getStream()
+    protected function write(array $record)
     {
-        return $this->stream;
-    }
-
-    /**
-     * Return the stream URL if it was configured with a URL and not an active resource
-     *
-     * @return string|null
-     */
-    public function getUrl(): ?string
-    {
-        return $this->url;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function write(array $record): void
-    {
-        if (!is_resource($this->stream)) {
-            $url = $this->url;
-            if (null === $url || '' === $url) {
+        if (null === $this->stream) {
+            if (!$this->url) {
                 throw new \LogicException('Missing stream url, the stream can not be opened. This may be caused by a premature call to close().');
             }
-            $this->createDir($url);
-            $this->errorMessage = null;
-            set_error_handler([$this, 'customErrorHandler']);
-            $stream = fopen($url, 'a');
-            if ($this->filePermission !== null) {
-                @chmod($url, $this->filePermission);
-            }
+            $errorMessage = null;
+            set_error_handler(function ($code, $msg) use (&$errorMessage) {
+                $errorMessage = preg_replace('{^fopen\(.*?\): }', '', $msg);
+            });
+            $this->stream = fopen($this->url, 'a');
             restore_error_handler();
-            if (!is_resource($stream)) {
+            if (!is_resource($this->stream)) {
                 $this->stream = null;
-
-                throw new \UnexpectedValueException(sprintf('The stream or file "%s" could not be opened in append mode: '.$this->errorMessage, $url));
-            }
-            stream_set_chunk_size($stream, self::MAX_CHUNK_SIZE);
-            $this->stream = $stream;
-        }
-
-        $stream = $this->stream;
-        if (!is_resource($stream)) {
-            throw new \LogicException('No stream was opened yet');
-        }
-
-        if ($this->useLocking) {
-            // ignoring errors here, there's not much we can do about them
-            flock($stream, LOCK_EX);
-        }
-
-        $this->streamWrite($stream, $record);
-
-        if ($this->useLocking) {
-            flock($stream, LOCK_UN);
-        }
-    }
-
-    /**
-     * Write to stream
-     * @param resource $stream
-     * @param array    $record
-     *
-     * @phpstan-param FormattedRecord $record
-     */
-    protected function streamWrite($stream, array $record): void
-    {
-        fwrite($stream, (string) $record['formatted']);
-    }
-
-    private function customErrorHandler(int $code, string $msg): bool
-    {
-        $this->errorMessage = preg_replace('{^(fopen|mkdir)\(.*?\): }', '', $msg);
-
-        return true;
-    }
-
-    private function getDirFromStream(string $stream): ?string
-    {
-        $pos = strpos($stream, '://');
-        if ($pos === false) {
-            return dirname($stream);
-        }
-
-        if ('file://' === substr($stream, 0, 7)) {
-            return dirname(substr($stream, 7));
-        }
-
-        return null;
-    }
-
-    private function createDir(string $url): void
-    {
-        // Do not try to create dir if it has already been tried.
-        if ($this->dirCreated) {
-            return;
-        }
-
-        $dir = $this->getDirFromStream($url);
-        if (null !== $dir && !is_dir($dir)) {
-            $this->errorMessage = null;
-            set_error_handler([$this, 'customErrorHandler']);
-            $status = mkdir($dir, 0777, true);
-            restore_error_handler();
-            if (false === $status && !is_dir($dir)) {
-                throw new \UnexpectedValueException(sprintf('There is no existing directory at "%s" and it could not be created: '.$this->errorMessage, $dir));
+                throw new \UnexpectedValueException(sprintf('The stream or file "%s" could not be opened: '.$errorMessage, $this->url));
             }
         }
-        $this->dirCreated = true;
+        fwrite($this->stream, (string) $record['formatted']);
     }
 }
