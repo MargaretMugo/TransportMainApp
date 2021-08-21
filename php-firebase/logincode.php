@@ -11,20 +11,19 @@ if(isset($_POST['login_btn']))
     $clearTextPassword = $_POST['password'];
     try {
         $user = $auth->getUserByEmail("$email");
+    
         try{
             $signInResult = $auth->signInWithEmailAndPassword($email, $clearTextPassword);
             $idTokenString = $signInResult->idToken();
             
             try {
+                /** @var \Lcobucci\JWT\Token\Plain $verifiedIdToken */
                 $verifiedIdToken = $auth->verifyIdToken($idTokenString);
                 $uid = $verifiedIdToken->claims()->get('sub');
-                $user = $auth->getUser($uid);
-                $verifiedIdToken = $auth->verifyIdToken($idTokenString);
-            
                 $_SESSION['verified_user_id'] = $uid;
                 $_SESSION['idTokenString'] = $idTokenString;
 
-                $_SESSION = "Logged in successfully";
+                $_SESSION['status'] = "Logged in successfully";
                 header('Location:home.php');
                 exit();
 
@@ -37,19 +36,19 @@ if(isset($_POST['login_btn']))
         }
         catch(Exception $e)
         {
-            $_SESSION = "Wrong password";
+            $_SESSION['status'] = "Wrong password";
             header('Location:login.php');
             exit();
         }
     } catch (\Kreait\Firebase\Exception\Auth\UserNotFound $e) {
         echo $e->getMessage();
-        $_SESSION = "Invalid email address";
+        $_SESSION['status'] = "Invalid email address";
         header('Location:login.php');
         exit();
     }
 }
 else{
-    $_SESSION = "Not allowed";
+    $_SESSION['status'] = "Not allowed";
     header('Location:login.php');
     exit();
 }
