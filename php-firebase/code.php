@@ -2,6 +2,53 @@
 session_start();
 include('dbcon.php');
 
+if(isset($_POST['reg_user_delete_btn']))
+{   
+    $uid = $_POST['reg_user_delete_btn'];
+    try
+    {
+        $auth->deleteUser($uid);
+        $_SESSION['status'] = "User deleted Successfully";
+        header('Location:user-list.php');
+        exit();
+    }
+    catch(Exception $e)
+    {
+        $_SESSION['status'] = "No User ID Found";
+        header('Location:user-list.php');
+        exit();
+    }
+    
+}
+
+if (isset($_POST['update_user_btn']))
+{
+    $displayname = $_POST['display_name'];
+    $phone = $_POST['phone'];
+
+    $uid = $_POST['user_id'];
+    $properties = [
+        'displayName' => $displayname,
+        'phoneNumber' => $phone
+    ];
+
+    $updatedUser = $auth->updateUser($uid, $properties);
+
+    if($updatedUser)
+    {
+        $_SESSION['status'] = "User updated Successfully";
+        header('Location:user-list.php');
+        exit();
+    }else{
+        $_SESSION['status'] = "User not updated!";
+        header('Location:user-list.php');
+        exit();
+    }
+}
+
+
+
+
 if(isset($_POST['register_btn']))
 {
     $fullName = $_POST['fullName'];
