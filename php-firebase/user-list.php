@@ -26,6 +26,8 @@ include('includes/header.php');
                                 <th>Display</th>
                                 <th>Phone Number</th>
                                 <th>Email ID</th>
+                                <th>Role as</th>
+                                <th>Disable/Enable</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -44,6 +46,30 @@ include('includes/header.php');
                                     <td><?= $user->displayName ?></td>
                                     <td><?= $user->phoneNumber ?></td>
                                     <td><?= $user->email ?></td>
+                                    <td>
+                                        <span class="border bg-warning p-2">
+                                            <?php
+                                            $claims = $auth->getUser($user->uid)->customClaims;
+                                            if (isset($claims['admin']) == true) {
+                                                echo "Role:Admin";
+                                            } elseif (isset($claims['super_admin']) == true) {
+                                                echo "Role:Super Admin";
+                                            } elseif ($claims == null) {
+                                                echo "Role:No Role";
+                                            }
+
+                                            ?>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <?php
+                                        if ($user->disabled) {
+                                            echo "Disabled";
+                                        } else {
+                                            echo "Enabled";
+                                        }
+                                        ?>
+                                    </td>
                                     <td>
                                         <a href="user-edit.php?id=<?= $user->uid; ?>" class="btn btn-primary btn-sm">Edit</a>
                                     </td>

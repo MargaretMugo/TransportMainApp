@@ -2,6 +2,92 @@
 session_start();
 include('dbcon.php');
 
+if(isset($_POST['user_claims_btn']))
+{
+    $uid = $_POST['claims_user_id'];
+    $roles = $_POST['role_as'];
+
+    if($roles == 'admin')
+    {
+        $auth->setCustomUserClaims($uid, ['admin']);
+        $msg = "User role as Admin";
+    }elseif($roles == 'super_admin')
+    {
+        $auth->setCustomUserClaims($uid, ['super_admin']);
+        $msg = "User role as Super Admin";
+    }elseif($roles =='norole')
+    {
+        $auth->setCustomUserClaims($uid, null);
+        $msg = "User has been removed!";
+    }
+    if ($msg) {
+        $_SESSION['status'] = $msg;
+        header('Location:user-list.php?id=$uid');
+        exit();
+    } else {
+        $_SESSION['status'] = "Password not updated!";
+        header('Location:user-list.php?id=$uid');
+        exit();
+    }
+}
+
+
+
+
+
+if(isset($_POST['change_password_btn']))
+{
+    $new_password = $_POST['new_password'];
+    $retype_password = $_POST['retype_password'];
+    $uid = $_POST['change_pwd_user_id'];
+    if($new_password == $retype_password)
+    {
+        $updatedUser = $auth->changeUserPassword($uid,$new_password);
+        if ($updatedUser) {
+            $_SESSION['status'] = "Password updated!";
+            header('Location:user-list.php');
+            exit();
+        } else {
+            $_SESSION['status'] = "Password not updated!";
+            header('Location:user-list.php');
+            exit();
+        }
+    }
+    else
+    {
+        $_SESSION['status'] = "Passwords do not match";
+        header('Location:user-list.php?id=$uid');
+        exit();
+    }
+    
+}
+
+if(isset($_POST['enable_disable_user_ac']))
+{
+    $disable_enable = $_POST['select_enable_disable'];
+    $uid = $_POST['ena_dis_user_id'];
+    if($disable_enable == "disable")
+    {
+        
+        $updatedUser = $auth->disableUser($uid);
+        $msg = "Account disabled";
+    }
+    else{
+        $updatedUser = $auth->enableUser($uid);
+        $msg = "Account enabled";
+    }
+
+    if ($updatedUser) {
+        $_SESSION['status'] = $msg;
+        header('Location:user-list.php');
+        exit();
+    } else {
+        $_SESSION['status'] = "Something went wrong!";
+        header('Location:user-list.php');
+        exit();
+    }
+}
+
 if(isset($_POST['reg_user_delete_btn']))
 {   
     $uid = $_POST['reg_user_delete_btn'];

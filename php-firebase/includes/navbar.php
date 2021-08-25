@@ -10,7 +10,7 @@
                     <a class="nav-link" href="index.php">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="user-list.php">User's list</a>
+                    <a class="nav-link" href="user-list.php">Users</a>
                 </li>
                 <?php
                 if (!isset($_SESSION['verified_user_id'])) :
