@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,15 +13,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TransportMainApp">
-        <activity android:name=".ForgotPassword"></activity>
+        <activity
+            android:name=".MpesaActivity"
+            android:exported="true" />
+        <activity android:name=".ForgotPassword" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".DriverActivity" />
-        <activity android:name=".Pickup1"/>
-        <activity android:name=".Passenger_Activity"/>
-        <activity android:name=".BookActivity"/>
-        <activity android:name=".EditProfilePage"/>
-        <activity android:name=".Commuter_Activity"/>
-        <activity android:name=".RegisterUser"/>
+        <activity android:name=".Pickup1" />
+        <activity android:name=".Passenger_Activity" />
+        <activity android:name=".BookActivity" />
+        <activity android:name=".EditProfilePage" />
+        <activity android:name=".Commuter_Activity" />
+        <activity android:name=".RegisterUser" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
