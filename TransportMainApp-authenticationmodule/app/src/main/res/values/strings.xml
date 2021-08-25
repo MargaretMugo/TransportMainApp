@@ -41,4 +41,5 @@
         <item>4:30PM</item>
         <item>6:30PM</item>
     </string-array>
+    <string name="title_activity_driver_map">Map</string>
 </resources>
