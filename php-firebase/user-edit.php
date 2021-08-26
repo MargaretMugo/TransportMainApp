@@ -151,13 +151,13 @@ include('includes/header.php');
                             <div class="form-group mb-3">
                                 <select name="role_as" class="form-control" required>
                                     <option value="">Select roles</option>
-                                    <option value="super_admin">Super Admin</option>
                                     <option value="admin">Admin</option>
+                                    <option value="super_admin">Super Admin</option>
                                     <option value="norole">Remove role</option>
                                 </select>
                             </div>
-                            <label for="">Currently,user role is:</label>
-                            <h4 class="border bg-warning p-2">
+                            <label for="">Current user role is:</label>
+                            <h4 class="border bg-warning">
                                 <?php
                                 $claims = $auth->getUser($uid)->customClaims;
                                 if(isset($claims['admin'])==true)

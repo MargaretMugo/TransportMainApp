@@ -1,5 +1,5 @@
 <?php
-include('authentication.php');
+include('admin_auth.php');
 include('includes/header.php');
 ?>
 
@@ -22,7 +22,7 @@ include('includes/header.php');
                     <table class="table table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>User No</th>
+                                <th>UserNo</th>
                                 <th>Display</th>
                                 <th>Phone Number</th>
                                 <th>Email ID</th>
@@ -47,17 +47,16 @@ include('includes/header.php');
                                     <td><?= $user->phoneNumber ?></td>
                                     <td><?= $user->email ?></td>
                                     <td>
-                                        <span class="border bg-warning p-2">
+                                        <span class="border bg-warning p-2 ">
                                             <?php
                                             $claims = $auth->getUser($user->uid)->customClaims;
                                             if (isset($claims['admin']) == true) {
-                                                echo "Role:Admin";
+                                                echo "Admin";
                                             } elseif (isset($claims['super_admin']) == true) {
-                                                echo "Role:Super Admin";
+                                                echo "Super Admin";
                                             } elseif ($claims == null) {
-                                                echo "Role:No Role";
+                                                echo "No Role";
                                             }
-
                                             ?>
                                         </span>
                                     </td>
