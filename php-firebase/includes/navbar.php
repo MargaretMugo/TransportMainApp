@@ -12,6 +12,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="user-list.php">Users</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="drivers.php">Drivers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="payments.php">Payments</a>
+                </li>
                 <?php
                 if (!isset($_SESSION['verified_user_id'])) :
                 ?>
@@ -22,17 +28,24 @@
                         <a class="nav-link" href="login.php">Login</a>
                     </li>
                 <?php else : ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="logout.php">Logout</a>
+                    <li class="nav-item dropdown">
+                        <?php
+                        $uid = $_SESSION['verified_user_id'];
+                        $user = $auth->getUser($uid);
+
+                        ?>
+                        <a class="nav-link btn btn-primary dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <?= $user->displayName; ?>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="my-profile.php">My Profile</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+                        </ul>
                     </li>
                 <?php endif; ?>
-                <li class="nav-item">
-                    <a class="nav-link" href="drivers.php">Drivers</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="payments.php">Payments</a>
-                </li>
-
         </div>
     </div>
 </nav>

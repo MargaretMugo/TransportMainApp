@@ -2,7 +2,7 @@
 
 use Kreait\Firebase\Value\Uid;
 
-include('authentication.php');
+include('admin_auth.php');
 include('dbcon.php');
 include('includes/header.php');
 ?>

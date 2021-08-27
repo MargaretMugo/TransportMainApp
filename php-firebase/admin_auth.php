@@ -14,6 +14,15 @@ if(isset($_SESSION['verified_user_id']))
 
         try {
             $verifiedIdToken = $auth->verifyIdToken($idTokenString);
+            $claims = $auth->getUser($uid)->customClaims;
+            if (isset($claims['admin']) == true) {
+                
+            }
+            else
+            {
+                header("Location:logout.php");
+                exit(0);
+            }
             //echo "Working"
         } catch (InvalidToken $e) {
             echo 'The token is invalid: ' . $e->getMessage();

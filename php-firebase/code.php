@@ -2,6 +2,54 @@
 session_start();
 include('dbcon.php');
 
+if(isset($_POST['update_user_profile']))
+{
+    $display_name = $_POST['display_name'];
+    $phone = $_POST['phone'];
+    $profile = $_FILES['profile']['name'];
+    $random_no = rand(1111,9999);
+
+    $uid = $_SESSION['verified_user_id'];
+    $user = $auth->getUser($uid);
+    $new_image = $random_no.$profile;
+    $old_image = $user->photoUrl;
+    if($profile != NULL)
+    {
+        $filename = 'uploads/'. $new_image;
+    }
+    else
+    {
+        $filename = $old_image;
+    }
+    
+    $properties = [
+        'displayName' => $display_name,
+        'phoneNumber' => $phone,
+        'photoUrl' => $filename,
+    ];
+
+    $updatedUser = $auth->updateUser($uid, $properties);
+
+    if ($updatedUser) {
+        if ($profile != NULL)
+        {
+            move_uploaded_file($_FILES['profile']['tmp_name'],"uploads/".$new_image);
+            if($old_image !=NULL)
+            {
+                unlink($old_image);
+            }
+        }
+        $_SESSION['status'] = "User profile updated";
+        header("Location:my-profile.php");
+        exit(0);
+    } else {
+        $_SESSION['status'] = "User profile not updated";
+        header("Location:my-profile.php");
+        exit(0);
+    }
+
+}
+
 if(isset($_POST['user_claims_btn']))
 {
     $uid = $_POST['claims_user_id'];
@@ -9,30 +57,29 @@ if(isset($_POST['user_claims_btn']))
 
     if($roles == 'admin')
     {
-        $auth->setCustomUserClaims($uid, ['admin']);
+        $auth->setCustomUserClaims($uid, ['admin'=>true]);
         $msg = "User role as Admin";
-    }elseif($roles == 'super_admin')
+    }
+    elseif($roles == 'super_admin')
     {
-        $auth->setCustomUserClaims($uid, ['super_admin']);
+        $auth->setCustomUserClaims($uid, ['super_admin'=>true]);
         $msg = "User role as Super Admin";
-    }elseif($roles =='norole')
+    }
+    elseif($roles =='norole')
     {
         $auth->setCustomUserClaims($uid, null);
         $msg = "User has been removed!";
     }
     if ($msg) {
         $_SESSION['status'] = $msg;
-        header('Location:user-list.php?id=$uid');
+        header("Location:user-edit.php?id=$uid");
         exit();
     } else {
         $_SESSION['status'] = "Password not updated!";
-        header('Location:user-list.php?id=$uid');
+        header("Location:user-edit.php?id=$uid");
         exit();
     }
 }
-
-
-
 
 
 if(isset($_POST['change_password_btn']))
