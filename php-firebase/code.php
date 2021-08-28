@@ -1,6 +1,27 @@
 <?php
 session_start();
 include('dbcon.php');
+if (isset($_POST['save_driver'])) {
+    $fullName = $_POST['fullName'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $carplate = $_POST['carPlate'];
+
+    $postData = [
+        'fullName' => $fullName,
+        'email' => $email,
+        'phone' => $phone,
+    ];
+    $ref_table = "Drivers";
+    $postRef_result = $database->getReference($ref_table)->push($postData);
+    if ($postRef_result) {  
+        $_SESSION['status'] = "Driver Added successfully";
+        header('Location:index.php');
+    } else {
+        $_SESSION['status'] = "User not Added";
+        header('Location:index.php');
+    }
+}
 
 if(isset($_POST['update_user_profile']))
 {
@@ -283,8 +304,5 @@ else
         header('Location:index.php');
 
 }
-
-
-
 }
 ?>

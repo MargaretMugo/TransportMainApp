@@ -29,7 +29,11 @@ include('includes/header.php');
                             <input type="number" name="phone" class="form-control">
                         </div>
                         <div class="form-group mb-3">
-                            <button type="submit" name="save_user" class="btn btn-primary">Save Driver</button>
+                            <label for="">Car Plate</label>
+                            <input type="text" name="carPlate" class="form-control">
+                        </div>
+                        <div class="form-group mb-3">
+                            <button type="submit" name="save_driver" class="btn btn-primary">Save Driver</button>
                         </div>
                     </form>
 

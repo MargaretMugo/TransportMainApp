@@ -13,7 +13,11 @@
 </head>
 
 <body>
-    <?php include('navbar.php');?>
+    <?php include('navbar.php'); ?>    <div class="bg-image" style="
+      background-image: url('gradient-background1.jpg');
+      height: 100vh;
+    ">
     <div class="py-4">
-
+        <!-- Background image -->
     
+        <!-- Background image -->
