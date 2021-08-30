@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TransportMainApp</string>
+    <string name="app_name">TravelNow</string>
     <string name="register_user">Register User</string>
     <string name="email">Email</string>
     <string name="age">Age</string>
@@ -11,7 +11,7 @@
     <string name="enter_your_email">Enter your email</string>
     <string name="logout">Logout</string>
     <string name="welcome">Welcome</string>
-    <string name="welcome_to_travel_now">Welcome back to Travel now</string>
+    <string name="welcome_to_travel_now">Welcome back! </string>
     <string name="are_you_a">Are you a Driver or Commuter?</string>
     <string name="driver">DRIVER</string>
     <string name="commuter">COMMUTER</string>

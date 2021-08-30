@@ -2,6 +2,7 @@ package com.example.transportmainapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -36,6 +37,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Toolbar toolbar = findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         register = (TextView) findViewById(R.id.register);

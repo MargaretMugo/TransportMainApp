@@ -2,6 +2,8 @@ package com.example.transportmainapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -9,7 +11,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-public class BookActivity extends AppCompatActivity {
+public class BookActivity extends AppCompatActivity implements View.OnClickListener {
     TextView receiver1_msg;
     TextView receiver2_msg;
     RadioGroup radioGroup;
@@ -22,6 +24,9 @@ public class BookActivity extends AppCompatActivity {
         receiver2_msg = (TextView)findViewById(R.id.drop_value);
         radioGroup = (RadioGroup)findViewById(R.id.groupradio);
 
+        Button payment = findViewById(R.id.payment_btn);
+        payment.setOnClickListener(this);
+
         radioGroup.clearCheck();
 
         // create the get Intent object
@@ -29,10 +34,10 @@ public class BookActivity extends AppCompatActivity {
 
         // receive the value by getStringExtra() method
         // and key must be same which is send by first activity
-        String str1 = intent.getStringExtra("message_key");
+        String string1 = intent.getStringExtra("message_key");
         String str2 = intent.getStringExtra("message_key");
         // display the string into textView
-        receiver1_msg.setText(str1);
+        receiver1_msg.setText(string1);
         receiver2_msg.setText(str2);
 
         radioGroup.setOnCheckedChangeListener(
@@ -51,4 +56,14 @@ public class BookActivity extends AppCompatActivity {
                     }
                 });
                 }
+    @Override
+    public void onClick(View v){
+        switch (v.getId()) {
+            case R.id.payment_btn:
+                startActivity(new Intent(BookActivity.this, MpesaActivity.class));
+                break;
+            default:
+                break;
+        }
+    }
     }

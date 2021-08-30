@@ -57,10 +57,11 @@ public class Pickup1 extends AppCompatActivity implements View.OnClickListener {
                 datePickerDialog.show();
                 break;
                 case R.id.schedule_button:
-                    String str1 = edit_drop.getText().toString();
-                    String str2 = edit_pickup.getText().toString();
+                    String string1 = edit_pickup.getText().toString();
+                    String str2 = edit_drop.getText().toString();
+
                     Intent intent = new Intent(getApplicationContext(), BookActivity.class);
-                    intent.putExtra("message_key", str1);
+                    intent.putExtra("message_key", string1);
                     intent.putExtra("message_key", str2);
                     startActivity(intent);
                     break;

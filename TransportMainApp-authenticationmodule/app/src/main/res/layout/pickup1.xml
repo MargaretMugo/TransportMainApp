@@ -5,32 +5,25 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="#FF018786"
     tools:context=".Pickup1">
 
-
-    <LinearLayout
-        android:id="@+id/appbar"
-        android:layout_width="562dp"
-        android:layout_height="158dp"
-        android:background="#FFBB86FC"
+    <TextView
+        android:id="@+id/headingTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="sans-serif-black"
         android:gravity="center"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="-92dp"
-        tools:layout_editor_absoluteY="-6dp">
+        android:text="TravelNow"
+        android:textAlignment="center"
+        android:textSize="60sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/headingTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:fontFamily="sans-serif-black"
-            android:gravity="center"
-            android:text="TravelNow"
-            android:textAlignment="center"
-            android:textSize="60sp"
-            android:textStyle="bold" />
-
-        <TextView
+    <TextView
             android:id="@+id/headerdescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,62 +31,70 @@
             android:text="Your Amazing App for travel"
             android:textAlignment="center"
             android:textSize="18sp"
-            android:textStyle="italic" />
-
-    </LinearLayout>
+            android:textStyle="italic"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/headingTitle"/>
 
     <TextView
         android:id="@+id/header_pickup1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="20dp"
         android:gravity="center_horizontal"
         android:text="Kindly Fill In Booking Details"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textSize="25sp"
         android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appbar" />
+        app:layout_constraintTop_toBottomOf="@+id/headerdescription" />
 
     <TextView
         android:id="@+id/pickup_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginLeft="90dp"
+        android:layout_marginTop="10dp"
         android:gravity="center_horizontal"
         android:text="Select Pick Up Station:"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="italic"
-        app:layout_constraintTop_toBottomOf="@+id/header_pickup1"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header_pickup1" />
 
     <Spinner
         android:id="@+id/spinner1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="50dp"
         android:layout_marginTop="5dp"
-        android:padding="10dp"
         android:background="#CCCCCC"
         android:entries="@array/pickup"
+        android:padding="10dp"
         android:prompt="@string/pickup_prompt"
-        app:layout_constraintTop_toBottomOf="@+id/pickup_text"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pickup_text" />
 
     <EditText
         android:id="@+id/edit_pickup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/spinner1"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="8dp"
         android:background="#CCCCCC"
-        android:layout_marginTop="5dp"
-        android:padding="10dp"
         android:ems="10"
+        android:hint="Enter Exact Pick Up location"
         android:inputType="text"
-        android:hint="Tap to Enter Exact Pick Up location">
+        android:padding="10dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner1">
+
         <requestFocus />
     </EditText>
 
@@ -101,41 +102,45 @@
         android:id="@+id/drop_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:gravity="center_horizontal"
         android:text="Select Drop Off Station:"
+        android:layout_marginLeft="90dp"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textStyle="italic"
         android:textSize="18sp"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="@id/edit_pickup"
-        app:layout_constraintRight_toRightOf="@id/edit_pickup"
+        android:textStyle="italic"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_pickup" />
 
     <Spinner
         android:id="@+id/spinner2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
         android:layout_marginTop="5dp"
+        android:layout_marginLeft="50dp"
         android:padding="10dp"
         android:background="#CCCCCC"
         android:entries="@array/drop_off"
         android:prompt="@string/drop_off_prompt"
-        app:layout_constraintTop_toBottomOf="@+id/drop_text"
-        tools:layout_editor_absoluteX="-73dp" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/drop_text" />
 
     <EditText
         android:id="@+id/edit_drop"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/spinner2"
-        android:background="#CCCCCC"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="50dp"
         android:layout_marginTop="5dp"
-        android:padding="10dp"
+        android:background="#CCCCCC"
         android:ems="10"
+        android:hint="Enter Exact Drop off location"
         android:inputType="text"
-        android:hint="Tap to Enter Exact Drop off location">
+        android:padding="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner2">
+
         <requestFocus />
     </EditText>
 
@@ -143,7 +148,8 @@
         android:id="@+id/date_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="90dp"
         android:gravity="center_horizontal"
         android:text="Select Pick Up Date:"
         android:textAlignment="center"
@@ -151,16 +157,16 @@
         android:textStyle="italic"
         android:textSize="18sp"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="@id/edit_drop"
-        app:layout_constraintRight_toRightOf="@id/edit_drop"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_drop" />
 
     <EditText
         android:id="@+id/date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
+        android:layout_marginLeft="50dp"
         android:background="#d4d4d4"
         android:hint="Double Click to Select Date"
         android:padding="10dp"
@@ -168,46 +174,50 @@
         android:textColorHint="@color/black"
         android:textSize="20sp"
         android:textStyle="italic"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/date_text"
         tools:layout_editor_absoluteX="0dp" />
 
     <TextView
         android:id="@+id/time_text"
-        android:layout_width="200dp"
+        android:layout_width="160dp"
         android:layout_height="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="25dp"
         android:gravity="center_horizontal"
         android:text="Select Pick Up Time:"
+        android:layout_marginLeft="40dp"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="italic"
-        app:layout_constraintLeft_toLeftOf="@id/date"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/date" />
 
     <Spinner
         android:id="@+id/spinner3"
-        android:layout_width="160dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="50dp"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="210dp"
+        android:layout_marginTop="25dp"
         android:background="#CCCCCC"
         android:entries="@array/time"
         android:prompt="@string/drop_off_prompt"
         android:textSize="18sp"
-        app:layout_constraintRight_toRightOf="@id/date"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/date" />
 
     <Button
         android:id="@+id/schedule_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:backgroundTint="#b794f6"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#FFBB86FC"
         android:text="SCHEDULE TRIP"
         android:textColor="#1e1b21"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/spinner3"
-        tools:layout_editor_absoluteX="120dp" />
+        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinner3" />
 </androidx.constraintlayout.widget.ConstraintLayout>
