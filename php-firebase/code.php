@@ -96,7 +96,7 @@ if(isset($_POST['user_claims_btn']))
         header("Location:user-edit.php?id=$uid");
         exit();
     } else {
-        $_SESSION['status'] = "Password not updated!";
+        $_SESSION['status'] = "User not updated!";
         header("Location:user-edit.php?id=$uid");
         exit();
     }
