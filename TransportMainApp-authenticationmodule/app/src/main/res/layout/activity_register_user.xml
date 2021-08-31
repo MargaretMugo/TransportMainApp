@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="false"
+    android:background="#FF018786"
     tools:context=".RegisterUser">
 
     <TextView
@@ -115,9 +116,9 @@
         android:layout_marginTop="30dp"
         android:layout_marginEnd="18dp"
         android:layout_marginRight="18dp"
-        android:backgroundTint="#b794f6"
+        android:textColor="#ffffff"
+        android:backgroundTint="#0ED689"
         android:text="@string/register_user"
-        android:textColor="#1e1b21"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"

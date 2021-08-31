@@ -14,12 +14,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        Button logout = findViewById(R.id.signOut);
         Button driver_button = findViewById(R.id.driver_button_id);
         Button passenger_button = findViewById(R.id.passenger_button_id);
         Button settings = findViewById(R.id.settings);
 
-        logout.setOnClickListener(this);
         driver_button.setOnClickListener(this);
         passenger_button.setOnClickListener(this);
         settings.setOnClickListener(this);
@@ -28,9 +26,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View v){
         switch (v.getId()){
-            case R.id.signOut:
-                startActivity(new Intent(ProfileActivity.this, MainActivity.class));
-                break;
             case R.id.driver_button_id:
                 startActivity(new Intent(ProfileActivity.this, DriverMapActivity.class));
                 break;
