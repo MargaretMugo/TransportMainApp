@@ -1,0 +1,22 @@
+{
+  "name": "transportmainapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MargaretMugo/TransportMainApp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MargaretMugo/TransportMainApp/issues"
+  },
+  "homepage": "https://github.com/MargaretMugo/TransportMainApp#readme",
+  "dependencies": {
+    "firebase": "^8.8.1"
+  }
+}
